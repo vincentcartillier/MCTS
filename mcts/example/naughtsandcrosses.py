@@ -1,20 +1,22 @@
 from __future__ import division
 
-from copy import deepcopy
-from mcts import mcts
-from functools import reduce
 import operator
+from copy import deepcopy
+from functools import reduce
+
+from mcts.base.base import BaseState, BaseAction
+from mcts.searcher.mcts import MCTS
 
 
-class NaughtsAndCrossesState():
+class NaughtsAndCrossesState(BaseState):
     def __init__(self):
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.currentPlayer = 1
 
-    def getCurrentPlayer(self):
+    def get_current_player(self):
         return self.currentPlayer
 
-    def getPossibleActions(self):
+    def get_possible_actions(self):
         possibleActions = []
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
@@ -22,13 +24,13 @@ class NaughtsAndCrossesState():
                     possibleActions.append(Action(player=self.currentPlayer, x=i, y=j))
         return possibleActions
 
-    def takeAction(self, action):
+    def take_action(self, action):
         newState = deepcopy(self)
         newState.board[action.x][action.y] = action.player
         newState.currentPlayer = self.currentPlayer * -1
         return newState
 
-    def isTerminal(self):
+    def is_terminal(self):
         for row in self.board:
             if abs(sum(row)) == 3:
                 return True
@@ -39,9 +41,9 @@ class NaughtsAndCrossesState():
                          [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))]]:
             if abs(sum(diagonal)) == 3:
                 return True
-        return reduce(operator.mul, sum(self.board, []), 1)
+        return reduce(operator.mul, sum(self.board, []), 1) != 0
 
-    def getReward(self):
+    def get_reward(self):
         for row in self.board:
             if abs(sum(row)) == 3:
                 return sum(row) / 3
@@ -52,10 +54,10 @@ class NaughtsAndCrossesState():
                          [self.board[i][len(self.board) - i - 1] for i in range(len(self.board))]]:
             if abs(sum(diagonal)) == 3:
                 return sum(diagonal) / 3
-        return False
+        return 0
 
 
-class Action():
+class Action(BaseAction):
     def __init__(self, player, x, y):
         self.player = player
         self.x = x
@@ -73,9 +75,10 @@ class Action():
     def __hash__(self):
         return hash((self.x, self.y, self.player))
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     initialState = NaughtsAndCrossesState()
-    searcher = mcts(timeLimit=1000)
+    searcher = MCTS(timeLimit=1000)
     action = searcher.search(initialState=initialState)
 
     print(action)
