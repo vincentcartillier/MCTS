@@ -5,7 +5,7 @@ It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCT
 
 ## Installation
 
-With pip: `pip install mcts`
+With pip: `pip install monte-carlo-tree-search`
 
 Without pip: Download the zip/tar.gz file of the [latest release](https://github.com/kstruempf/MCTS/releases),
 extract it, and run `python setup.py install`
