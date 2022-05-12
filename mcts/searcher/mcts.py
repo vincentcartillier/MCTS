@@ -7,20 +7,20 @@ import time
 from mcts.base.base import BaseState
 
 
-def random_policy(state: BaseState):
-    while not state.isTerminal():
+def random_policy(state: BaseState) -> float:
+    while not state.is_terminal():
         try:
-            action = random.choice(state.getPossibleActions())
+            action = random.choice(state.get_possible_actions())
         except IndexError:
             raise Exception("Non-terminal state has no possible actions: " + str(state))
-        state = state.takeAction(action)
-    return state.getReward()
+        state = state.take_action(action)
+    return state.get_reward()
 
 
 class TreeNode:
     def __init__(self, state, parent):
         self.state = state
-        self.isTerminal = state.isTerminal()
+        self.isTerminal = state.is_terminal()
         self.isFullyExpanded = self.isTerminal
         self.parent = parent
         self.numVisits = 0
@@ -94,10 +94,10 @@ class MCTS:
         return node
 
     def expand(self, node: TreeNode) -> TreeNode:
-        actions = node.state.getPossibleActions()
+        actions = node.state.get_possible_actions()
         for action in actions:
             if action not in node.children:
-                newNode = TreeNode(node.state.takeAction(action), node)
+                newNode = TreeNode(node.state.take_action(action), node)
                 node.children[action] = newNode
                 if len(actions) == len(node.children):
                     node.isFullyExpanded = True
@@ -115,7 +115,7 @@ class MCTS:
         bestValue = float("-inf")
         bestNodes = []
         for child in node.children.values():
-            nodeValue = (node.state.getCurrentPlayer() * child.totalReward / child.numVisits +
+            nodeValue = (node.state.get_current_player() * child.totalReward / child.numVisits +
                          explorationValue * math.sqrt(math.log(node.numVisits) / child.numVisits))
             if nodeValue > bestValue:
                 bestValue = nodeValue

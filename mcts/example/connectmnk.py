@@ -3,10 +3,11 @@ from __future__ import division
 import copy
 import random
 
+from mcts.base.base import BaseState, BaseAction
 from mcts.searcher.mcts import MCTS
 
 
-class ConnectMNKState:
+class ConnectMNKState(BaseState):
     """ConnectMNKState models a Connect(m,n,k,1,1) game that generalizes
     the famous "Connect Four" itself equal to the Connect(7,6,4,1,1) game.
 
@@ -47,10 +48,10 @@ class ConnectMNKState:
             rowText += f" {rowIndex % 10} "
             print(rowText)
 
-    def getCurrentPlayer(self):
+    def get_current_player(self):
         return self.currentPlayer
 
-    def getPossibleActions(self):
+    def get_possible_actions(self):
         if self.possibleActions is None:
             self.possibleActions = []
             for columnIndex in range(self.mColumns):
@@ -66,7 +67,7 @@ class ConnectMNKState:
             random.shuffle(self.possibleActions)
         return self.possibleActions
 
-    def takeAction(self, action):
+    def take_action(self, action):
         newState = copy.copy(self)
         newState.board = copy.deepcopy(newState.board)
         newState.board[action.rowIndex][action.columnIndex] = action.player
@@ -76,7 +77,7 @@ class ConnectMNKState:
         newState.winingPattern = None
         return newState
 
-    def isTerminal(self):
+    def is_terminal(self):
         if self.isTerminated is None:
             self.isTerminated = False
             for rowIndex in range(self.nRows):
@@ -130,7 +131,7 @@ class ConnectMNKState:
                         self.winingPattern = "k-in-antidiagonal"
                         break
 
-            if not self.isTerminated and len(self.getPossibleActions()) == 0:
+            if not self.isTerminated and len(self.get_possible_actions()) == 0:
                 self.isTerminated = True
                 self.reward = 0
 
@@ -154,13 +155,13 @@ class ConnectMNKState:
                     break
         return lineReward
 
-    def getReward(self):
-        assert self.isTerminal()
+    def get_reward(self):
+        assert self.is_terminal()
         assert self.reward is not None
         return self.reward
 
 
-class Action():
+class Action(BaseAction):
     def __init__(self, player, columnIndex, rowIndex):
         self.player = player
         self.rowIndex = rowIndex
@@ -222,32 +223,32 @@ def main():
 
     turn = 0
     currentState.show()
-    while not currentState.isTerminal():
+    while not currentState.is_terminal():
         turn += 1
-        player = currentState.getCurrentPlayer()
-        action_count = len(currentState.getPossibleActions())
+        player = currentState.get_current_player()
+        action_count = len(currentState.get_possible_actions())
 
         searcherName = playerSearcherNames[player]
         searcher = searchers[searcherName]
 
         action = searcher.search(initialState=currentState)
         statistics = extractStatistics(searcher, action)
-        currentState = currentState.takeAction(action)
+        currentState = currentState.take_action(action)
 
         print(f"at turn {turn} player {playerNames[player]}={player} ({searcherName})" +
               f" takes action (column, row)={action} amongst {action_count} possibilities")
 
         print("searcher statitics:" +
-              f" chosen action= {statistics['actionTotalReward']} total reward" +
+              f" chosen action={statistics['actionTotalReward']} total reward" +
               f" over {statistics['actionNumVisits']} visits /"
-              f" all explored actions= {statistics['rootTotalReward']} total reward" +
+              f" all explored actions={statistics['rootTotalReward']} total reward" +
               f" over {statistics['rootNumVisits']} visits")
 
         print('-' * 120)
         currentState.show()
 
     print('-' * 120)
-    if currentState.getReward() == 0:
+    if currentState.get_reward() == 0:
         print(f"Connect(m={m},n={n},k={k}) game terminates; nobody wins")
     else:
         print(f"Connect(m={m},n={n},k={k}) game terminates;" +

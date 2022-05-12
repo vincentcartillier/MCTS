@@ -4,18 +4,19 @@ import operator
 from copy import deepcopy
 from functools import reduce
 
+from mcts.base.base import BaseState, BaseAction
 from mcts.searcher.mcts import MCTS
 
 
-class NaughtsAndCrossesState:
+class NaughtsAndCrossesState(BaseState):
     def __init__(self):
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.currentPlayer = 1
 
-    def getCurrentPlayer(self):
+    def get_current_player(self):
         return self.currentPlayer
 
-    def getPossibleActions(self):
+    def get_possible_actions(self):
         possibleActions = []
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
@@ -23,13 +24,13 @@ class NaughtsAndCrossesState:
                     possibleActions.append(Action(player=self.currentPlayer, x=i, y=j))
         return possibleActions
 
-    def takeAction(self, action):
+    def take_action(self, action):
         newState = deepcopy(self)
         newState.board[action.x][action.y] = action.player
         newState.currentPlayer = self.currentPlayer * -1
         return newState
 
-    def isTerminal(self):
+    def is_terminal(self):
         for row in self.board:
             if abs(sum(row)) == 3:
                 return True
@@ -42,7 +43,7 @@ class NaughtsAndCrossesState:
                 return True
         return reduce(operator.mul, sum(self.board, []), 1) != 0
 
-    def getReward(self):
+    def get_reward(self):
         for row in self.board:
             if abs(sum(row)) == 3:
                 return sum(row) / 3
@@ -56,7 +57,7 @@ class NaughtsAndCrossesState:
         return 0
 
 
-class Action():
+class Action(BaseAction):
     def __init__(self, player, x, y):
         self.player = player
         self.x = x

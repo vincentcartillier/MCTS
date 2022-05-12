@@ -11,27 +11,23 @@ class BaseAction(ABC):
 
 class BaseState(ABC):
     @abstractmethod
-    def getCurrentPlayer(self) -> int:
+    def get_current_player(self) -> int:
         # 1 for maximiser, -1 for minimiser
         raise NotImplementedError()
 
     @abstractmethod
-    def getPossibleActions(self) -> [BaseAction]:
+    def get_possible_actions(self) -> [BaseAction]:
         raise NotImplementedError()
 
     @abstractmethod
-    def takeAction(self, action) -> 'BaseState':
+    def take_action(self, action) -> 'BaseState':
         raise NotImplementedError()
 
     @abstractmethod
-    def isTerminal(self) -> bool:
+    def is_terminal(self) -> bool:
         raise NotImplementedError()
 
     @abstractmethod
-    def getReward(self) -> float:
+    def get_reward(self) -> float:
         # only needed for terminal states
-        raise NotImplementedError()
-
-    @abstractmethod
-    def __eq__(self, other):
         raise NotImplementedError()
