@@ -28,9 +28,9 @@ this would be a class with a custom `__hash__` method, but it could also simply 
 Once these have been implemented, running MCTS is as simple as initializing your starting state, then running:
 
 ```python
-from mcts.searcher.mcts import mcts
+from mcts.searcher.mcts import MCTS
 
-searcher = mcts(timeLimit=1000)
+searcher = MCTS(timeLimit=1000)
 bestAction = searcher.search(initialState=initialState)
 ```
 

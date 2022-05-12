@@ -4,10 +4,10 @@ import operator
 from copy import deepcopy
 from functools import reduce
 
-from mcts.searcher.mcts import mcts
+from mcts.searcher.mcts import MCTS
 
 
-class NaughtsAndCrossesState():
+class NaughtsAndCrossesState:
     def __init__(self):
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.currentPlayer = 1
@@ -77,7 +77,7 @@ class Action():
 
 if __name__ == "__main__":
     initialState = NaughtsAndCrossesState()
-    searcher = mcts(timeLimit=1000)
+    searcher = MCTS(timeLimit=1000)
     action = searcher.search(initialState=initialState)
 
     print(action)

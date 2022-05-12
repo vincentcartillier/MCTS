@@ -3,7 +3,7 @@ from __future__ import division
 import copy
 import random
 
-from mcts.searcher.mcts import mcts
+from mcts.searcher.mcts import MCTS
 
 
 class ConnectMNKState:
@@ -201,10 +201,10 @@ def main():
     """
 
     searchers = {}
-    searchers["searcher-1500ms"] = mcts(timeLimit=1_500)
-    searchers["searcher-1000ms"] = mcts(timeLimit=1_000)
-    searchers["searcher-500ms"] = mcts(timeLimit=500)
-    searchers["searcher-250ms"] = mcts(timeLimit=250)
+    searchers["searcher-1500ms"] = MCTS(timeLimit=1_500)
+    searchers["searcher-1000ms"] = MCTS(timeLimit=1_000)
+    searchers["searcher-500ms"] = MCTS(timeLimit=500)
+    searchers["searcher-250ms"] = MCTS(timeLimit=250)
 
     playerNames = ConnectMNKState.playerNames
 
