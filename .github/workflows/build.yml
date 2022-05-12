@@ -28,7 +28,7 @@ jobs:
   create-release:
     name: 'Create Release'
     needs: [ build ]
-    if: github.ref == 'refs/heads/ci'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: write
