@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ 'main', 'dev' ]
+    branches: [ 'main', 'dev', 'ci' ]
   pull_request:
     branches: [ 'main','dev' ]
 
@@ -16,17 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Get Version from Commit History
-        uses: mathieudutour/github-tag-action@v5.6
-        id: tag_version
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main
-          pre_release_branches: dev
-      - name: Write Version to File
-        run: |
-          echo "${{ github.ref }}" > .VERSION
-          echo "${{ github.ref }}"
       - uses: actions/setup-python@v2
       - name: Build Package
         uses: casperdcl/deploy-pypi@v2
@@ -37,23 +26,37 @@ jobs:
           # only upload if a tag is pushed (otherwise just build & check)
           upload: false
 
-#  create-release:
-#    name: 'Create Release'
-#    needs: [ build ]
-#    if: github.ref == 'refs/heads/main'
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Bump version and push tag
-#        id: tag_version
-#        uses: mathieudutour/github-tag-action@v5.6
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          release_branches: main
-#          pre_release_branches: pre-release
-#      - name: Create a GitHub release
-#        uses: ncipollo/release-action@v1
-#        with:
-#          tag: ${{ steps.tag_version.outputs.new_tag }}
-#          name: Release ${{ steps.tag_version.outputs.new_tag }}
-#          body: ${{ steps.tag_version.outputs.changelog }}
+  create-release:
+    name: 'Create Release'
+    needs: [ build ]
+    if: github.ref == 'refs/heads/ci'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Version from Commit History
+        uses: mathieudutour/github-tag-action@v6.0
+        id: tag_version
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: main,ci
+          pre_release_branches: dev
+      - name: Write Version to File
+        run: |
+          echo "${{ github.ref }}" > .VERSION
+          echo "${{ github.ref }}"
+      - uses: actions/setup-python@v2
+      - name: Build Package
+        uses: casperdcl/deploy-pypi@v2
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}
+          gpg_key: ${{ secrets.GPG_KEY }}
+          pip: true
+          upload: false
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
