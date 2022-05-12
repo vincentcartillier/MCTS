@@ -7,7 +7,7 @@ It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCT
 
 With pip: `pip install mcts`
 
-Without pip: Download the zip/tar.gz file of the [latest release](https://github.com/pbsinclair42/MCTS/releases),
+Without pip: Download the zip/tar.gz file of the [latest release](https://github.com/kstruempf/MCTS/releases),
 extract it, and run `python setup.py install`
 
 ## Quick Usage
@@ -45,7 +45,7 @@ searcher = MCTS(timeLimit=1000)
 bestAction = searcher.search(initialState=initialState)
 ```
 
-Here the unit of `timeLimit=1000` is millisecond. You can also use `iterationLimit=1600` to specify the number of
+Here the unit of `timeLimit=1000` is milliseconds. You can also use `iterationLimit=1600` to specify the number of
 rollouts. Exactly one of `timeLimit` and `iterationLimit` should be specified. The expected reward of best action can be
 got by setting `needDetails` to `True` in `searcher`.
 
