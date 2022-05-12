@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ 'main', 'dev', 'ci' ]
+    branches: [ 'main' ]
   pull_request:
     branches: [ 'main','dev' ]
 
@@ -23,7 +23,6 @@ jobs:
           password: ${{ secrets.PYPI_TOKEN }}
           gpg_key: $ {{ secrets.GPG_KEY }}
           pip: true
-          # only upload if a tag is pushed (otherwise just build & check)
           upload: false
 
   create-release:
@@ -40,7 +39,7 @@ jobs:
         id: tag_version
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main,ci
+          release_branches: main
           pre_release_branches: dev
       - name: Write Version to File
         run: |
@@ -52,7 +51,7 @@ jobs:
           password: ${{ secrets.PYPI_TOKEN }}
           gpg_key: ${{ secrets.GPG_KEY }}
           pip: true
-          upload: false
+          upload: true
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
