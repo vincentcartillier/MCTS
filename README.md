@@ -12,23 +12,34 @@ extract it, and run `python setup.py install`
 
 ## Quick Usage
 
-In order to run MCTS, you must implement a `State` class which can fully describe the state of the world. It must also
-implement four methods:
+In order to run MCTS, you must implement your own `State` class that extends `mcts.base.base.BaseState` class which can
+fully describe the state of the world. It must implement four methods:
 
-- `getCurrentPlayer()`: Returns 1 if it is the maximizer player's turn to choose an action, or -1 for the minimiser
+- `get_current_player()`: Returns 1 if it is the maximizer player's turn to choose an action, or -1 for the minimiser
   player
-- `getPossibleActions()`: Returns an iterable of all `action`s which can be taken from this state
-- `takeAction(action)`: Returns the state which results from taking action `action`
-- `isTerminal()`: Returns `True` if this state is a terminal state
-- `getReward()`: Returns the reward for this state. Only needed for terminal states.
+- `get_possible_actions()`: Returns an iterable of all `action`s which can be taken from this state
+- `take_action(action)`: Returns the state which results from taking action `action`
+- `is_terminal()`: Returns `True` if this state is a terminal state
+- `get_reward()`: Returns the reward for this state. Only needed for terminal states.
 
-You must also choose a hashable representation for an action as used in `getPossibleActions` and `takeAction`. Typically
-this would be a class with a custom `__hash__` method, but it could also simply be a tuple or a string.
+You must also choose a hashable representation for an action as used in `get_possible_actions` and `take_action`.
+Typically, this would be a class with a custom `__hash__` method, but it could also simply be a tuple, a string, etc.
+A `BaseAction` class is provided for this purpose.
 
 Once these have been implemented, running MCTS is as simple as initializing your starting state, then running:
 
 ```python
 from mcts.searcher.mcts import MCTS
+from mcts.base.base import BaseState
+
+
+class MyState(BaseState):
+    """
+    TODO: Implement your state
+    """
+
+
+initialState = MyState()
 
 searcher = MCTS(timeLimit=1000)
 bestAction = searcher.search(initialState=initialState)
@@ -43,12 +54,12 @@ resultDict = searcher.search(initialState=initialState, needDetails=True)
 print(resultDict.keys())  # currently includes dict_keys(['action', 'expectedReward'])
 ```
 
-See [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) for a simple example.
-See also [connectmnk.py](mcts/example/connectmnk.py) for an example running a full game bewteen two MCTS agents.
+**Examples**
 
-## Slow Usage
+You can find some examples in this repository:
 
-//TODO
+* [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) is a minimal runnable example
+* [connectmnk.py](mcts/example/connectmnk.py) is an example running a full game between two MCTS agents.
 
 ## Collaborating
 

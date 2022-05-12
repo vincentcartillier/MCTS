@@ -16,7 +16,7 @@ class BaseState(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def get_possible_actions(self) -> [BaseAction]:
+    def get_possible_actions(self) -> []:
         raise NotImplementedError()
 
     @abstractmethod
