@@ -1,8 +1,7 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='mcts',
-    py_modules=['mcts'],
     version='1.0.3',
     description='A simple package to allow users to run Monte Carlo Tree Search on any perfect information domain',
     long_description=open("README.md", "r").read(),
@@ -27,4 +26,5 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules"
     ],
+    packages=find_packages()
 )

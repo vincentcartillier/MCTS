@@ -28,7 +28,7 @@ this would be a class with a custom `__hash__` method, but it could also simply 
 Once these have been implemented, running MCTS is as simple as initializing your starting state, then running:
 
 ```python
-from mcts import mcts
+from mcts.searcher.mcts import mcts
 
 searcher = mcts(timeLimit=1000)
 bestAction = searcher.search(initialState=initialState)
@@ -43,8 +43,8 @@ resultDict = searcher.search(initialState=initialState, needDetails=True)
 print(resultDict.keys())  # currently includes dict_keys(['action', 'expectedReward'])
 ```
 
-See [naughtsandcrosses.py](./naughtsandcrosses.py) for a simple example.
-See also [connectmnk.py](./connectmnk.py) for an example running a full game bewteen two MCTS agents.
+See [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) for a simple example.
+See also [connectmnk.py](mcts/example/connectmnk.py) for an example running a full game bewteen two MCTS agents.
 
 ## Slow Usage
 

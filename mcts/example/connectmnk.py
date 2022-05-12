@@ -1,8 +1,9 @@
 from __future__ import division
 
 import copy
-from mcts import mcts
 import random
+
+from mcts.searcher.mcts import mcts
 
 
 class ConnectMNKState:
@@ -200,10 +201,10 @@ def main():
     """
 
     searchers = {}
-    searchers["mcts-1500ms"] = mcts(timeLimit=1_500)
-    searchers["mcts-1000ms"] = mcts(timeLimit=1_000)
-    searchers["mcts-500ms"] = mcts(timeLimit=500)
-    searchers["mcts-250ms"] = mcts(timeLimit=250)
+    searchers["searcher-1500ms"] = mcts(timeLimit=1_500)
+    searchers["searcher-1000ms"] = mcts(timeLimit=1_000)
+    searchers["searcher-500ms"] = mcts(timeLimit=500)
+    searchers["searcher-250ms"] = mcts(timeLimit=250)
 
     playerNames = ConnectMNKState.playerNames
 
@@ -236,7 +237,7 @@ def main():
         print(f"at turn {turn} player {playerNames[player]}={player} ({searcherName})" +
               f" takes action (column, row)={action} amongst {action_count} possibilities")
 
-        print("mcts statitics:" +
+        print("searcher statitics:" +
               f" chosen action= {statistics['actionTotalReward']} total reward" +
               f" over {statistics['actionNumVisits']} visits /"
               f" all explored actions= {statistics['rootTotalReward']} total reward" +
