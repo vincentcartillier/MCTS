@@ -49,7 +49,6 @@ jobs:
         uses: casperdcl/deploy-pypi@v2
         with:
           password: ${{ secrets.PYPI_TOKEN }}
-          gpg_key: ${{ secrets.GPG_KEY }}
           pip: true
           upload: true
       - name: Create a GitHub release
