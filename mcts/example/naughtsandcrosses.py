@@ -1,8 +1,8 @@
 from __future__ import division
 
+import operator
 from copy import deepcopy
 from functools import reduce
-import operator
 
 from mcts.searcher.mcts import mcts
 
@@ -42,7 +42,6 @@ class NaughtsAndCrossesState():
                 return True
         return reduce(operator.mul, sum(self.board, []), 1) != 0
 
-
     def getReward(self):
         for row in self.board:
             if abs(sum(row)) == 3:
@@ -75,7 +74,8 @@ class Action():
     def __hash__(self):
         return hash((self.x, self.y, self.player))
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     initialState = NaughtsAndCrossesState()
     searcher = mcts(timeLimit=1000)
     action = searcher.search(initialState=initialState)

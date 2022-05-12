@@ -1,8 +1,8 @@
 from __future__ import division
 
-import time
 import math
 import random
+import time
 
 
 def randomPolicy(state):
@@ -26,14 +26,14 @@ class treeNode():
         self.children = {}
 
     def __str__(self):
-        s=[]
-        s.append("totalReward: %s"%(self.totalReward))
-        s.append("numVisits: %d"%(self.numVisits))
-        s.append("isTerminal: %s"%(self.isTerminal))
-        s.append("possibleActions: %s"%(self.children.keys()))
-        return "%s: {%s}"%(self.__class__.__name__, ', '.join(s))
+        s = ["totalReward: %s" % self.totalReward,
+             "numVisits: %d" % self.numVisits,
+             "isTerminal: %s" % self.isTerminal,
+             "possibleActions: %s" % (self.children.keys())]
+        return "%s: {%s}" % (self.__class__.__name__, ', '.join(s))
 
-class mcts():
+
+class mcts:
     def __init__(self, timeLimit=None, iterationLimit=None, explorationConstant=math.sqrt(2),
                  rolloutPolicy=randomPolicy):
         if timeLimit != None:
@@ -65,7 +65,7 @@ class mcts():
                 self.executeRound()
 
         bestChild = self.getBestChild(self.root, 0)
-        action=(action for action, node in self.root.children.items() if node is bestChild).__next__()
+        action = (action for action, node in self.root.children.items() if node is bestChild).__next__()
         if needDetails:
             return {"action": action, "expectedReward": bestChild.totalReward / bestChild.numVisits}
         else:

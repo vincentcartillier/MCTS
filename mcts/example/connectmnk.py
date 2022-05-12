@@ -18,13 +18,13 @@ class ConnectMNKState:
     In particular, Connect(m,n,6,2,1) is called Connect6.
     """
 
-    playerNames = {1:'O', -1:'X'}
+    playerNames = {1: 'O', -1: 'X'}
 
     def __init__(self, mColumns=7, nRows=6, kConnections=4):
         self.mColumns = mColumns
         self.nRows = nRows
         self.kConnections = kConnections
-        self.board = [ [0 for _ in range(self.mColumns)] for _ in range(self.nRows)]
+        self.board = [[0 for _ in range(self.mColumns)] for _ in range(self.nRows)]
         self.currentPlayer = max(ConnectMNKState.playerNames.keys())
         self.isTerminated = None
         self.reward = None
@@ -210,7 +210,7 @@ def main():
 
     playerSearcherNames = {}
     for player in sorted(playerNames.keys()):
-         playerSearcherNames[player] = random.choice(sorted(searchers.keys()))
+        playerSearcherNames[player] = random.choice(sorted(searchers.keys()))
 
     runnableGames = list()
     runnableGames.append((3, 3, 3))
@@ -243,10 +243,10 @@ def main():
               f" all explored actions= {statistics['rootTotalReward']} total reward" +
               f" over {statistics['rootNumVisits']} visits")
 
-        print('-'*120)
+        print('-' * 120)
         currentState.show()
 
-    print('-'*120)
+    print('-' * 120)
     if currentState.getReward() == 0:
         print(f"Connect(m={m},n={n},k={k}) game terminates; nobody wins")
     else:
