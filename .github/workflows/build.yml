@@ -44,8 +44,7 @@ jobs:
           pre_release_branches: dev
       - name: Write Version to File
         run: |
-          echo "${{ github.ref }}" > .VERSION
-          echo "${{ github.ref }}"
+          echo "${{ steps.tag_version.outputs.new_tag }}" > .VERSION
       - uses: actions/setup-python@v2
       - name: Build Package
         uses: casperdcl/deploy-pypi@v2
