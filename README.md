@@ -1,7 +1,10 @@
 # MCTS
 
 This package provides a simple way of using Monte Carlo Tree Search in any perfect information domain.
-It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCTS).
+
+It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCTS). This fork however complies with the 
+[Python Naming Convention](https://namingconvention.org/python/), provides base classes for implementing states and actions, 
+and provides more comprehensive examples.
 
 ## Installation
 
