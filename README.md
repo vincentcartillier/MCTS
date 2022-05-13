@@ -1,7 +1,10 @@
 # MCTS
 
 This package provides a simple way of using Monte Carlo Tree Search in any perfect information domain.
-It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCTS).
+
+It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCTS). This fork however complies with the
+[Python Naming Convention](https://namingconvention.org/python/), provides base classes for implementing states and
+actions, and provides more comprehensive examples.
 
 ## Installation
 
@@ -12,8 +15,8 @@ extract it, and run `python setup.py install`
 
 ## Quick Usage
 
-In order to run MCTS, you must implement your own `State` class that extends `mcts.base.base.BaseState` class which can
-fully describe the state of the world. It must implement four methods:
+In order to run MCTS, you must implement your own `State` class that extends `mcts.base.base.BaseState` which can fully
+describe the state of the world. It must implement four methods:
 
 - `get_current_player()`: Returns 1 if it is the maximizer player's turn to choose an action, or -1 for the minimiser
   player
