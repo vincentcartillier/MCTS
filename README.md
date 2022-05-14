@@ -59,10 +59,10 @@ print(resultDict.keys())  # currently includes dict_keys(['action', 'expectedRew
 
 **Examples**
 
-You can find some examples in this repository:
+You can find some examples using the MCTS here:
 
-* [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) is a minimal runnable example
-* [connectmnk.py](mcts/example/connectmnk.py) is an example running a full game between two MCTS agents.
+* [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) is a minimal runnable example by [pbsinclair42](https://github.com/pbsinclair42)
+* [connectmnk.py](mcts/example/connectmnk.py) is an example running a full game between two MCTS agents by [LucasBorboleta](https://github.com/LucasBorboleta)
 
 ## Collaborating
 
