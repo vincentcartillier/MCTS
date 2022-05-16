@@ -8,7 +8,7 @@ actions, and provides more comprehensive examples.
 
 ## Installation
 
-With pip: `pip install monte-carlo-tree-search`
+With [pip](https://pypi.org/project/monte-carlo-tree-search/): `pip install monte-carlo-tree-search`
 
 Without pip: Download the zip/tar.gz file of the [latest release](https://github.com/kstruempf/MCTS/releases),
 extract it, and run `python setup.py install`
@@ -59,10 +59,10 @@ print(resultDict.keys())  # currently includes dict_keys(['action', 'expectedRew
 
 **Examples**
 
-You can find some examples in this repository:
+You can find some examples using the MCTS here:
 
-* [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) is a minimal runnable example
-* [connectmnk.py](mcts/example/connectmnk.py) is an example running a full game between two MCTS agents.
+* [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) is a minimal runnable example by [pbsinclair42](https://github.com/pbsinclair42)
+* [connectmnk.py](mcts/example/connectmnk.py) is an example running a full game between two MCTS agents by [LucasBorboleta](https://github.com/LucasBorboleta)
 
 ## Collaborating
 
