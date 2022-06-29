@@ -4,7 +4,7 @@ This package provides a simple way of using Monte Carlo Tree Search in any perfe
 
 It was originally authored by [pbsinclair42](https://github.com/pbsinclair42/MCTS). This fork however complies with the
 [Python Naming Convention](https://namingconvention.org/python/), provides base classes for implementing states and
-actions, and provides more comprehensive examples.
+actions, and includes more comprehensive examples.
 
 ## Installation
 
@@ -61,8 +61,10 @@ print(resultDict.keys())  # currently includes dict_keys(['action', 'expectedRew
 
 You can find some examples using the MCTS here:
 
-* [naughtsandcrosses.py](mcts/example/naughtsandcrosses.py) is a minimal runnable example by [pbsinclair42](https://github.com/pbsinclair42)
-* [connectmnk.py](mcts/example/connectmnk.py) is an example running a full game between two MCTS agents by [LucasBorboleta](https://github.com/LucasBorboleta)
+* [naughtsandcrosses.py](https://github.com/kstruempf/MCTS/blob/main/mcts/example/naughtsandcrosses.py) is a minimal
+  runnable example by [pbsinclair42](https://github.com/pbsinclair42)
+* [connectmnk.py](https://github.com/kstruempf/MCTS/blob/main/mcts/example/connectmnk.py) is an example running a full
+  game between two MCTS agents by [LucasBorboleta](https://github.com/LucasBorboleta)
 
 ## Collaborating
 
