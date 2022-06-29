@@ -201,11 +201,12 @@ def main():
     The game parameters (m,n,k) are randomly chosen.
     """
 
-    searchers = {}
-    searchers["searcher-1500ms"] = MCTS(timeLimit=1_500)
-    searchers["searcher-1000ms"] = MCTS(timeLimit=1_000)
-    searchers["searcher-500ms"] = MCTS(timeLimit=500)
-    searchers["searcher-250ms"] = MCTS(timeLimit=250)
+    searchers = {
+        "searcher-1500ms": MCTS(time_limit=1_500),
+        "searcher-1000ms": MCTS(time_limit=1_000),
+        "searcher-500ms": MCTS(time_limit=500),
+        "searcher-250ms": MCTS(time_limit=250)
+    }
 
     playerNames = ConnectMNKState.playerNames
 
@@ -231,7 +232,7 @@ def main():
         searcherName = playerSearcherNames[player]
         searcher = searchers[searcherName]
 
-        action = searcher.search(initialState=currentState)
+        action = searcher.search(initial_state=currentState)
         statistics = extractStatistics(searcher, action)
         currentState = currentState.take_action(action)
 

@@ -77,8 +77,8 @@ class Action(BaseAction):
 
 
 if __name__ == "__main__":
-    initialState = NaughtsAndCrossesState()
-    searcher = MCTS(timeLimit=1000)
-    action = searcher.search(initialState=initialState)
+    initial_state = NaughtsAndCrossesState()
+    searcher = MCTS(time_limit=1000)
+    action = searcher.search(initial_state=initial_state)
 
     print(action)
