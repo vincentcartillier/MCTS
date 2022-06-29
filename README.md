@@ -32,8 +32,8 @@ A `BaseAction` class is provided for this purpose.
 Once these have been implemented, running MCTS is as simple as initializing your starting state, then running:
 
 ```python
-from mcts.searcher.mcts import MCTS
 from mcts.base.base import BaseState
+from mcts.searcher.mcts import MCTS
 
 
 class MyState(BaseState):
@@ -42,19 +42,26 @@ class MyState(BaseState):
     """
 
 
-initialState = MyState()
+initial_state = MyState()
 
-searcher = MCTS(timeLimit=1000)
-bestAction = searcher.search(initialState=initialState)
+searcher = MCTS(time_limit=1000)
+bestAction = searcher.search(initial_state=initial_state)
 ```
 
-Here the unit of `timeLimit=1000` is milliseconds. You can also use `iterationLimit=1600` to specify the number of
-rollouts. Exactly one of `timeLimit` and `iterationLimit` should be specified. The expected reward of best action can be
-got by setting `needDetails` to `True` in `searcher`.
+Here the unit of `time_limit=1000` is milliseconds. You can also use for example `iteration_limit=100` to specify the
+number of rollouts. Exactly one of `time_limit` and `iteration_limit` should be specified.
 
 ```python
-resultDict = searcher.search(initialState=initialState, needDetails=True)
-print(resultDict.keys())  # currently includes dict_keys(['action', 'expectedReward'])
+best_action = searcher.search(initial_state=initial_state)
+print(best_action)  # the best action to take found within the time limit
+```
+
+To also receive the best reward as a return value set `need_details` to `True` in `searcher.search(...)`.
+
+```python
+best_action, reward = searcher.search(initial_state=initial_state, need_details=True)
+print(best_action)  # the best action to take found within the time limit
+print(reward)  # the expected reward for the best action
 ```
 
 **Examples**
